@@ -1,0 +1,1 @@
+const bookingHandler = require('../services/bookingHandler');
