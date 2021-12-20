@@ -29,6 +29,7 @@ router.get('/my-bookings', async function (req, res, next) {
       webSitePassword,
       preferTime
     );
+    
     res.format({
       html: () => res.send(bookingResult),
     });

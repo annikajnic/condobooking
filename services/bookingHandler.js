@@ -10,6 +10,7 @@ const isDev = !isProduction;
 const authenticationError = 'Failed the authentication process';
 const bookingError = 'Failed the booking process';
 
+
 async function startBrowser() {
   let browser = null;
   let context = null;
@@ -121,14 +122,16 @@ async function fillInGeneralInfo(page) {
 //Note: the logic for excluding, for instance, weekends, can be added here or
 //in a cronjob, service, node job, etc
 async function fillInDatePicker(page) {
-  var currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-  var day = currentDate.getDate()
-  var month = currentDate.getMonth() + 1
-  var year = currentDate.getFullYear()
-  var tomDate = month.toString() + '/' + day.toString() + '/' + year.toString();
-  console.log(tomDate);
+
+  
   await page.evaluate(() => {
-      $('#TimeSlotDateOption').val('11/27/2021');
+    var currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    var day =(currentDate.getDate());
+    var month =(currentDate.getMonth() + 1);
+    var year = (currentDate.getFullYear());
+    var tomDate =(month.toString() + '/' + day.toString() + '/' + year.toString());
+    console.log(tomDate);
+      $('#TimeSlotDateOption').val(tomDate);
   });
 
     
@@ -147,11 +150,18 @@ async function fillinAvailibity(page) {
     await page.waitForTimeout(2000);
     // await page.click(`.ui-button-text-only`);
     await page.click(`#amenity4157`);
-    
+    await page.waitForTimeout(500);
      // use manually trigger change event
   await page.evaluate(() => {
-    var value = $('#timeSlotDropdown option').eq(1).val();
-    $(`#timeSlotDropdown option[value="${value}"]`).attr('selected','selected');
+    // var value = $('#timeSlotDropdown option').eq(1).val();
+    // $(`#timeSlotDropdown option[value="${value}"]`).attr('selected','selected');
+    document.querySelector(
+      '#timeSlotDropdown option:nth-child(3)'
+    ).selected = true;
+    element = document.querySelector('#timeSlotDropdown');
+    const event = new Event('change', { bubbles: true });
+    event.simulated = true;
+    element.dispatchEvent(event);
     
   });
     await page.click(`#SendReminder`);
@@ -202,8 +212,9 @@ async function myBookings(webSiteUser, webSitePassword, preferTime) {
       isProduction && (await page.click(`#btnFinalize`));
     
       isDev && console.log('Booking submitted');
+      
     }
-    // closeBrowser(browser);
+    isProduction && closeBrowser(browser);
     return upcomingBookings;
   } catch (err) {
     console.log(`Puppeteer Error Detected -> ${err}`);

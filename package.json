@@ -19,14 +19,27 @@
   },
   "homepage": "https://github.com/annikajnic/condobooking#readme",
   "dependencies": {
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "fullcalendar-scheduler": "^5.10.1",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
     "jquery": "^3.6.0",
     "jquery-datepicker": "^1.12.3",
+    "jquery-ui-multidatespicker": "^1.6.6",
     "js-datepicker": "^5.18.0",
     "jsdom": "^18.1.1",
+    "mongodb": "^4.2.1",
+    "mongoose": "^6.1.2",
+    "morgan": "^1.10.0",
     "nodemailer": "^6.7.1",
     "nodemon": "^2.0.15",
-    "puppeteer": "^11.0.0"
+    "nvm": "^0.0.4",
+    "path": "^0.12.7",
+    "puppeteer": "^11.0.0",
+    "serve-favicon": "^2.5.0",
+    "toastr": "^2.1.4"
   }
 }
